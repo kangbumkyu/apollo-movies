@@ -6,8 +6,14 @@ query getMovie($id: Int!) {
     movie(id: $id) {
         id
         title
+        rating
         medium_cover_image
         description_intro
+    }
+    suggestions(id: $id) {
+        id
+        title
+        medium_cover_image
     }
 }
 `;
@@ -23,8 +29,14 @@ export default () => {
     if (loading) {
         return "loading...";
     }
-    if (data && data.movie) {
-        return data.movie.title;
-    }
-    return "Detail";
+    return (
+        <>
+            <div>{data?.movie?.title}</div>
+            <div>
+                {data?.suggestions?.map(sug => <span>{sug.title}</span>)}
+            </div>
+        </>
+    )
+   
+
 }
